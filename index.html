@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To My Forever Valentine ♡</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #f9e1e8 0%, #fce4ec 50%, #f8bbd0 100%);
+      color: #333;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: rgba(216, 27, 96, 0.15);
+    }
+    .title{
+      background-color: #d81b60;
+      width: 100%;
+      height: 100px;
+      border-radius: 10px;
+      margin: none;
+    }
+    .header-title{
+       text-align: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 2.2rem;
+      color: #d81b60;
+      animation: float 10s linear infinite;
+      opacity: 0.75;
+      user-select: none;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(110vh) rotate(0deg); }
+      100% { transform: translateY(-20vh) rotate(720deg); }
+    }
+
+    /* Container & Login */
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.94);
+      padding: 2.4rem 1.6rem;
+      border-radius: 24px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+      max-width: 480px;
+      width: 92%;
+      margin: 24px auto;
+      backdrop-filter: blur(10px);
+      transition: all 0.7s ease;
+      position: relative;
+      top: 150px;
+      z-index: 10;
+    }
+
+    h1 {
+      text-align: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 0 0.9rem;
+      color: #d81b60;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+    }
+
+    .subtitle {
+      font-size: 1.18rem;
+      color: #555;
+      margin-bottom: 1.6rem;
+    }
+
+    input[type="password"] {
+      font-size: 1.4rem;
+      padding: 14px 20px;
+      width: 100%;
+      max-width: 280px;
+      margin: 1.2rem auto;
+      border: 3px solid #f8bbd0;
+      border-radius: 16px;
+      background: #fff;
+      text-align: center;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    input:focus {
+      border-color: #d81b60;
+      box-shadow: 0 0 0 4px rgba(216, 27, 96, 0.22);
+    }
+
+    button {
+      font-size: 1.3rem;
+      padding: 14px 60px;
+      margin-top: 0.8rem;
+      background: #d81b60;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.25s;
+      box-shadow: 0 6px 20px rgba(216, 27, 96, 0.3);
+      touch-action: manipulation;
+      min-height: 54px;
+    }
+
+    button:active {
+      transform: scale(0.96);
+      box-shadow: 0 3px 12px rgba(216, 27, 96, 0.4);
+    }
+
+    /* Success Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.35s;
+    }
+
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2.2rem 1.6rem;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 90%;
+      width: 340px;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.3);
+      transform: scale(0.88);
+      transition: transform 0.35s;
+    }
+
+    .modal.active .modal-content {
+      transform: scale(1);
+    }
+
+    .checkmark {
+      font-size: 4.8rem;
+      color: #4caf50;
+      margin-bottom: 0.8rem;
+    }
+
+    .modal h2 {
+      color: #d81b60;
+      margin: 0.4rem 0 1.2rem;
+      font-size: 1.7rem;
+    }
+
+    /* After success content */
+    .content-after {
+      max-width: 960px;
+      margin: 16px auto;
+      padding: 0 12px;
+      display: none;
+    }
+
+    .content-after.active {
+      display: block;
+    }
+
+    .found-title {
+      text-align: center;
+      font-size: 2.3rem;
+      color: #d81b60;
+      margin: 1rem 0 1.8rem;
+      font-weight: 800;
+    }
+
+    /* ────────────── NAVIGATION ────────────── */
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 16px;
+      margin-bottom: 2rem;
+      padding: 0 8px;
+    }
+
+    .nav-btn {
+      font-size: 1.05rem;
+      padding: 12px 28px;
+      border-radius: 999px;
+      background: white;
+      border: 2px solid #f8bbd0;
+      color: #444;
+      cursor: pointer;
+      transition: all 0.24s;
+      font-weight: 600;
+      touch-action: manipulation;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    .nav-btn:active {
+      transform: scale(0.96);
+      background: #ffebee;
+    }
+
+    .nav-btn.active,
+    .nav-btn:focus {
+      background: #d81b60;
+      color: white;
+      border-color: #d81b60;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(216, 27, 96, 0.3);
+    }
+
+    /* Tab content */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Photos */
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin: 1.2rem 0;
+    }
+
+    .photo {
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      border: 4px solid white;
+      transition: transform 0.28s;
+      display: block;
+    }
+
+    .photo:active {
+      transform: scale(1.05);
+    }
+
+    /* Letter */
+    .letter {
+      max-width: 100%;
+      margin: 0 auto 2rem;
+      font-size: 1.14rem;
+      line-height: 1.78;
+      color: #333;
+      background: rgba(255,255,255,0.82);
+      padding: 1.6rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .signature {
+      font-family: 'Georgia', serif;
+      font-size: 1.95rem;
+      color: #d81b60;
+      margin-top: 1.8rem;
+      text-align: right;
+    }
+
+    /* Music */
+    .music-list {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .song-item {
+      background: white;
+      border-radius: 14px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .song-info {
+      flex: 1;
+    }
+
+    .song-title {
+      font-weight: 700;
+      font-size: 1.12rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .song-artist {
+      color: #555;
+      font-size: 0.94rem;
+    }
+
+    iframe[data-testid="embed-iframe"] {
+      border-radius: 12px !important;
+      width: 100%;
+      min-height: 100px;
+      aspect-ratio: 16 / 9;
+      max-height: 160px;
+    }
+
+    /* ────────────── RESPONSIVE ────────────── */
+    @media (max-width: 600px) {
+      .nav-bar {
+        gap: 10px 12px;
+        padding: 0 4px;
+      }
+
+      .nav-btn {
+        font-size: 0.98rem;
+        padding: 10px 22px;
+        min-width: 110px;
+        min-height: 44px;
+      }
+
+      h1 { font-size: 2.1rem; }
+      .found-title { font-size: 2rem; margin: 0.8rem 0 1.4rem; }
+      .container { padding: 1.8rem 1.4rem; margin: 16px auto; border-radius: 20px; }
+      .modal-content { padding: 1.8rem 1.4rem; width: 92%; }
+      .photos { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+      .letter { font-size: 1.08rem; line-height: 1.75; padding: 1.4rem; }
+      button { padding: 12px 50px; font-size: 1.25rem; min-height: 52px; }
+    }
+
+    @media (max-width: 400px) {
+      .nav-btn {
+        font-size: 0.95rem;
+        padding: 9px 18px;
+        min-width: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<!-- Login Container -->
+<div class="container" id="container">
+  <div id="loginScreen">
+    <h1>Our Secret ♡</h1>
+    <div class="subtitle">Type our special number</div>
+    
+    <input type="password" id="secretNumber" placeholder="••••••" maxlength="10" autocomplete="off"/>
+    <br>
+    <button onclick="checkSecret()">Open my heart</button>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal" id="successModal">
+  <div class="modal-content">
+    <div class="checkmark">✓</div>
+    <h2>Secret code success!</h2>
+    <button onclick="closeModalAndShowContent()">Continue ♡</button>
+  </div>
+</div>
+
+<!-- Main content after success -->
+<div class="content-after" id="mainContent">
+
+  <div class="title"><h1 class="header-title">Special Place Just For You ♡</h1></div>
+
+  <!-- Navigation -->
+  <div class="nav-bar">
+    <button class="nav-btn active" onclick="openTab('photos')">Picture Together</button>
+    <button class="nav-btn" onclick="openTab('letter')">Letter For You</button>
+    <button class="nav-btn" onclick="openTab('music')">Our Favorite Song</button>
+  </div>
+
+  <!-- Tab: Photos -->
+  <div id="photos" class="tab-content active">
+    <div class="photos">
+      <img class="photo" src="image/image1.jpg" alt="us 1">
+      <img class="photo" src="image/image10.jpg" alt="us 2">
+      <img class="photo" src="image/image3.jpg" alt="us 3">
+      <img class="photo" src="image/image4.jpg" alt="us 4">
+      <img class="photo" src="image/image5.jpg" alt="us 5">
+      <img class="photo" src="image/image6.jpg" alt="us 6">
+      <img class="photo" src="image/image7.jpg" alt="us 7">
+      <img class="photo" src="image/image8.jpg" alt="us 8">
+      <img class="photo" src="image/image9.jpg" alt="us 9">
+      <img class="photo" src="image/image2.jpg" alt="us 10">
+    </div>
+  </div>
+
+  <!-- Tab: Letter -->
+  <div id="letter" class="tab-content">
+    <div class="letter">
+      My love,<br><br>
+
+      Hello mylove just wanted to remind you how grateful I am to have you Thank you for always making me feel loved, safe, and special I miss you and I can’t wait to see you again love Iloveyousomuch😘😘❤️❤️❤️<br>
+
+      <span class="signature">- Love♡</span><br> 
+    </div>x
+  </div>
+
+  <!-- Tab: Music -->
+  <div id="music" class="tab-content">
+    <div class="music-list">
+      <div class="song-item">
+        <div class="song-info">
+          <div class="song-title">Libu-Libong Buwan (Uuwian)</div>
+          <div class="song-artist">Kyle Raphael</div>
+        </div>
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3cZUIZ8i74C1Kvnix4xZez?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ────────────────────────────────────────────────
+//      CHANGE THESE TWO THINGS ONLY
+// ────────────────────────────────────────────────
+const SECRET_PIN = "041324";
+// ────────────────────────────────────────────────
+
+function checkSecret() {
+  const input = document.getElementById("secretNumber").value.trim();
+
+  if (!input) {
+    alert("Input First!");
+    return;
+  }
+
+  if (input === SECRET_PIN) {
+    document.getElementById("successModal").classList.add("active");
+    startHearts();
+  } else {
+    alert("Hmm... that's not it. Try again, love 💕");
+    document.getElementById("secretNumber").value = "";
+    document.getElementById("secretNumber").focus();
+  }
+}
+
+function closeModalAndShowContent() {
+  document.getElementById("successModal").classList.remove("active");
+  document.getElementById("container").style.display = "none";
+  document.getElementById("mainContent").classList.add("active");
+}
+
+function openTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+  document.getElementById(tabName).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function startHearts() {
+  const container = document.getElementById("hearts");
+  const hearts = ['❤️','💗','💖','💘','💓','💕','💞'];
+
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 1.8 + 1) + "rem";
+    heart.style.animationDuration = (Math.random() * 8 + 8) + "s";
+    heart.style.animationDelay = Math.random() * 6 + "s";
+
+    container.appendChild(heart);
+    setTimeout(() => heart.remove(), 18000);
+  }, 450);
+}
+</script>
+
+</body>
+</html>
